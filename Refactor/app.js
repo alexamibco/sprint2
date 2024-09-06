@@ -23,14 +23,6 @@ function saveContacts() {
   });
 }
 
-function filteredContactsResult(filteredContacts) {
-  let li = document.createElement("li");
-  li.classList.add("contact-item");
-  li.setAttribute("data-id", contact.id);
-  li.innerHTML = `<strong>${contact.name}</strong> - ${contact.phone} <button class="edit-btn">Edit</button> <button class="delete-btn">Delete</button>`;
-  contactList.appendChild(li);
-}
-
 contactForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -129,19 +121,6 @@ contacts.forEach(function (contact) {
   displayContact(contact);
 });
 
-/*filterInput.addEventListener("input", function () {
-  let filterValue = filterInput.value;
-
-  function filterContacts(filterValue) {
-    return contacts.filter(
-      (contact) =>
-        contact.name.includes(filterValue) ||
-        contact.phone.includes(filterValue)
-    );
-  }
-  displayContact(filterContacts(filterValue));
-});*/
-
 filterInput.addEventListener("input", function () {
   let filterValue = filterInput.value.toLowerCase();
 
@@ -156,28 +135,13 @@ filterInput.addEventListener("input", function () {
   filteredContactsResult(filteredContacts);
 });
 
-clearFilterBtn.addEventListener("click", function () {
-  filterInput.value = "";
-  //contactList.innerHTML = "";
-});
-
-/*//Filter
-function filterContacts(query) {
-  const lowerCaseQuery = query.toLowerCase();
-  return contacts.filter(contact =>
-    contact.name.toLowerCase().includes(lowerCaseQuery) ||
-    contact.phone.includes(lowerCaseQuery)
-  );
+function filteredContactsResult(data) {
+  contactList.innerHTML = "";
+  data.forEach(contact => {
+    displayContact(contact);
+  })
 }
 
-filterInput.oninput = function () {
-  const filterValue = filterInput.value;
-  displayContacts(filterContacts(filterValue));
-};
-
-clearFilterBtn.onclick = function () {
+clearFilterBtn.addEventListener("click", function () {
   filterInput.value = "";
-  displayContacts(contacts);
-};
-
-displayContacts(contacts);*/
+});
